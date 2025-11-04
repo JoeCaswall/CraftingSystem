@@ -1,7 +1,9 @@
-namespace Game.Enums
+namespace Enums
 {
     public enum OutputMaterialType
     {
-
+        MetalBar,
+        Leather,
+        Bowstring
     }
 }

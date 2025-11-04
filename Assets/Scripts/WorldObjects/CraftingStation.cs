@@ -1,4 +1,4 @@
-namespace Game.WorldObjects
+namespace WorldObjects
 {
     public class CraftingStation
     {

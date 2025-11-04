@@ -1,7 +1,7 @@
-namespace Game.Core
+namespace Core
 {
-    public interface IMaterial
+    public interface IMaterial : IItem
     {
-
+        public string GetMaterialCategory(); // Returns "Raw" or "Output"
     }
 }
