@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public class RecipeBook
+namespace Game.Gameplay
 {
-    
+    public class RecipeBook
+    {
+
+    }
 }

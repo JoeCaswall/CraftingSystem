@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public enum RawMaterialType
+namespace Game.Enums
 {
-    
+    public enum RawMaterialType
+    {
+
+    }
 }

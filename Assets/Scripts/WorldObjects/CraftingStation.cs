@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public class CraftingStation
+namespace Game.WorldObjects
 {
-    
+    public class CraftingStation
+    {
+
+    }
 }

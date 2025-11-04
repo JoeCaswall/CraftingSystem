@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public class RawMaterial
+namespace Game.Gameplay
 {
-    
+    public class RawMaterial
+    {
+
+    }
 }

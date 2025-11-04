@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public class OutputMaterial
+namespace Game.Gameplay
 {
-    
+    public class OutputMaterial
+    {
+
+    }
 }

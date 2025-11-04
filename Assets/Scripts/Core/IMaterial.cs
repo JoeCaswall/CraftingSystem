@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public interface IMaterial
+namespace Game.Core
 {
-    
+    public interface IMaterial
+    {
+
+    }
 }

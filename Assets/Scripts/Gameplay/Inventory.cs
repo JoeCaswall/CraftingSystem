@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public class Inventory
+namespace Game.Gameplay
 {
-    
+    public class Inventory
+    {
+
+    }
 }

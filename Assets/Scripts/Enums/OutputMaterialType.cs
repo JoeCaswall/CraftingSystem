@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public enum OutputMaterialType
+namespace Game.Enums
 {
-    
+    public enum OutputMaterialType
+    {
+
+    }
 }

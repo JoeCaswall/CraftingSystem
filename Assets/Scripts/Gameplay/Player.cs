@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public class Player
+namespace Game.Gameplay
 {
-    
+    public class Player
+    {
+
+    }
 }

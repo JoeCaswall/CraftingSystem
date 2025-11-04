@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public enum CraftedItemType
+namespace Game.Enums
 {
+    public enum CraftedItemType
+    {
     
+    }
 }

@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public class CraftedItem
+namespace Game.Gameplay
 {
-    
+    public class CraftedItem : IItem
+    {
+
+    }
 }

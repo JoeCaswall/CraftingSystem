@@ -1,6 +1,7 @@
-namespace DefaultNamespace;
-
-public interface IItem
+namespace Game.Core
 {
+    public interface IItem
+    {
     
+    }
 }
