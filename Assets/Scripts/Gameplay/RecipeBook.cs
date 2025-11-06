@@ -4,10 +4,14 @@ namespace Gameplay
 {
     public class RecipeBook
     {
-        private Dictionary<Recipe, bool> _recipes;
-        public RecipeBook(Dictionary<Recipe, bool> recipes) {
+        private Dictionary<string, bool> _recipes;
+        public RecipeBook(Dictionary<string, bool> recipes) {
             _recipes = recipes;
         }
+
+        public void LearnRecipe(Recipe recipe)
+        {
+            _recipes[recipe.Name] = true;
+        }
     }
-    
 }

@@ -6,16 +6,32 @@ namespace Gameplay
     public class Inventory
     {
         private Player _belongsTo;
-        private List<CraftedItem> _craftedItems;
-        private List<IMaterial> _materials;
+        public Dictionary<CraftedItem, int> CraftedItems;
+        public Dictionary<IMaterial, int> Materials { get; }
 
-        public Inventory(Player belongsTo, List<CraftedItem> craftedItems, List<IMaterial> materials)
+        public Inventory(Player belongsTo, Dictionary<CraftedItem, int> craftedItems, Dictionary<IMaterial, int> materials)
         {   
-            _materials = materials;
             _belongsTo = belongsTo;
-            _craftedItems = craftedItems;
+            Materials = materials;
+            CraftedItems = craftedItems;
+        }
+
+        public void AddItem(CraftedItem item, int quantity)
+        {
+            if (CraftedItems.ContainsKey(item))
+            {
+                CraftedItems[item] += quantity;
+            }
+            CraftedItems.TryAdd(item, quantity);
         }
         
-        
+        public void AddMaterial(OutputMaterial material, int quantity)
+        {
+            if (Materials.ContainsKey(material))
+            {
+                Materials[material] += quantity;
+            }
+            Materials.TryAdd(material, quantity);
+        }
     }
 }
