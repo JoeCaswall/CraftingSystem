@@ -5,7 +5,7 @@ using Enums;
 
 namespace Gameplay
 {
-    public class Recipe //TODO: Add materialrecipe and itemrecipe classes which extend this to allow for easier crafting table logic
+    public abstract class Recipe //TODO: Add materialrecipe and itemrecipe classes which extend this to allow for easier crafting table logic
     {
         private static HashSet<string> _existingNames = new();
         public string Name {get; set;}
