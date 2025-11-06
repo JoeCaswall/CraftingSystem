@@ -10,6 +10,11 @@ namespace WorldObjects
         private string _name;
         private CraftingStationType _type;
 
+        public CraftingStation(string name, CraftingStationType type)
+        {
+            _name = name;
+            _type = type;
+        }
         private bool IsCorrectStationType(Recipe recipe)
         {
             return recipe.AllowedCraftingStations.Contains(_type);
@@ -71,7 +76,7 @@ namespace WorldObjects
             }
 
             // Add crafted output
-            player.Inventory.AddMaterial(recipe.OutputMaterial, 1); //TODO: write inventory methods
+            player.Inventory.AddMaterial(recipe.OutputMaterial, recipe.DefaultOutputQuantity);
             return recipe.OutputMaterial;
         }
     }
