@@ -4,6 +4,7 @@ namespace Gameplay
     {
         private string _name;
         public Inventory Inventory;
+        public RecipeBook RecipeBook;
 
         public Player(string name, Inventory inventory)
         {
