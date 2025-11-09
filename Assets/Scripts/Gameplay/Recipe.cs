@@ -5,14 +5,14 @@ using Enums;
 
 namespace Gameplay
 {
-    public abstract class Recipe //TODO: Add materialrecipe and itemrecipe classes which extend this to allow for easier crafting table logic
+    public abstract class Recipe
     {
         private static HashSet<string> _existingNames = new();
         public string Name {get; set;}
-        public string Category { get; }
-        public Dictionary<IMaterial, int> Ingredients { get; }
-        public List<CraftingStationType> AllowedCraftingStations { get; }
-        public int DefaultOutputQuantity { get; private set; }
+        public string Category { get; set; }
+        public Dictionary<IMaterial, int> Ingredients { get; set;  }
+        public List<CraftingStationType> AllowedCraftingStations { get; set; }
+        public int DefaultOutputQuantity { get; protected set; }
 
         protected Recipe(string name, string category, Dictionary<IMaterial, int> ingredients,
             List<CraftingStationType> allowedCraftingStations, int defaultOutputQuantity)

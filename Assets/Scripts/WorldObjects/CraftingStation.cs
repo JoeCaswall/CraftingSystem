@@ -76,8 +76,8 @@ namespace WorldObjects
             }
 
             // Add crafted output
-            player.Inventory.AddMaterial(recipe.OutputMaterial, recipe.DefaultOutputQuantity);
-            return recipe.OutputMaterial;
+            player.Inventory.AddMaterial(recipe.GetOutputMaterial(), recipe.DefaultOutputQuantity);
+            return recipe.GetOutputMaterial();
         }
     }
 }

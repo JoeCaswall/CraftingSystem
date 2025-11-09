@@ -8,11 +8,12 @@ namespace Gameplay
     {
         public CraftedItem CraftedItem { get; }
 
-        public ItemRecipe(CraftedItem craftedItem, string name, string category, Dictionary<IMaterial, int> ingredients,
+        public ItemRecipe(string name, string category, Dictionary<IMaterial, int> ingredients,
             List<CraftingStationType> allowedCraftingStations, int defaultOutputQuantity)
             : base(name, category, ingredients, allowedCraftingStations, defaultOutputQuantity)
         {
-            CraftedItem = craftedItem;
+            // Ensure all new recipes are added to the registry
+            RecipeRegistry.RegisterItemRecipe(this);
         }
         
     }

@@ -1,14 +1,17 @@
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 using WorldObjects;
 using Gameplay;
 using TMPro;
 using UnityEngine.UI;
 using Enums;
+using ScriptableObjects;
+using UI;
 
 namespace UnityScripts
 {
-    public class CraftingStationbehaviour : MonoBehaviour
+    public class CraftingStationBehaviour : MonoBehaviour
     {
         [Header("Station Setup")]
         public CraftingStationType stationType;
@@ -22,8 +25,8 @@ namespace UnityScripts
         public GameObject recipeButtonPrefab;
         
         [Header("Recipe Source")]
-        public List<Recipe> allRecipes;
-        
+        public List<Recipe> itemRecipes;
+        public List<Recipe> materialRecipes;
         private Transform playerTransform;
 
         private CraftingStation _station;
@@ -34,6 +37,8 @@ namespace UnityScripts
             playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
             if (playerTransform == null)
                 Debug.LogError("Player not found. Make sure the Player GameObject is tagged 'Player'.");
+            itemRecipes = RecipeRegistry.AllRecipes["items"].FindAll(r => r.AllowedCraftingStations.Contains(stationType));
+            materialRecipes = RecipeRegistry.AllRecipes["materials"].FindAll(r => r.AllowedCraftingStations.Contains(stationType));
         }
         
         void Update()
@@ -48,7 +53,7 @@ namespace UnityScripts
         {
             return Vector2.Distance(transform.position, playerTransform.position) <= interactionRange;
         }
-        
+
         void OpenCraftingUI()
         {
             if (craftingPanel == null || recipeButtonContainer == null || recipeButtonPrefab == null)
@@ -58,19 +63,25 @@ namespace UnityScripts
             }
 
             craftingPanel.SetActive(true);
-            stationNameText.text = $"Crafting Station: {stationType}";
+            stationNameText.text = stationType.ToString();
 
             // Clear old buttons
             foreach (Transform child in recipeButtonContainer)
                 Destroy(child.gameObject);
 
-            // Filter and create buttons
-            foreach (var recipe in allRecipes)
+            CreateButtons(materialRecipes);
+            CreateButtons(itemRecipes);
+        }
+
+
+        private void CreateButtons(List<Recipe> recipes)
+        {
+            foreach (var recipe in recipes)
             {
                 if (recipe.AllowedCraftingStations.Contains(stationType))
                 {
-                    var buttonGO = Instantiate(recipeButtonPrefab, recipeButtonContainer);
-                    var button = buttonGO.GetComponent<RecipeButtonBehaviour>();
+                    var buttonGo = Instantiate(recipeButtonPrefab, recipeButtonContainer);
+                    var button = buttonGo.GetComponent<RecipeButtonBehaviour>();
                     button.Setup(recipe, this);
                 }
             }
@@ -91,6 +102,37 @@ namespace UnityScripts
             else
             {
                 Debug.LogWarning("Unknown recipe type.");
+            }
+        }
+
+        public Recipe ConvertToRecipe(RecipeSO recipeSO)
+        {
+            var ingredientDict = new Dictionary<IMaterial, int>();
+            foreach (var ingredient in recipeSO.ingredients)
+            {
+                ingredientDict.Add(new MaterialWrapper(ingredient.material), ingredient.quantity);
+            }
+
+            if (recipeSO.isItemRecipe)
+            {
+                return new ItemRecipe(
+                    recipeSO.recipeName,
+                    recipeSO.category,
+                    ingredientDict,
+                    recipeSO.allowedStations,
+                    recipeSO.outputQuantity
+                );
+            }
+            else
+            {
+                return new MaterialRecipe(
+                    recipeSO.recipeName,
+                    recipeSO.OutputMaterialType,
+                    recipeSO.category,
+                    ingredientDict,
+                    recipeSO.allowedStations,
+                    recipeSO.outputQuantity
+                );
             }
         }
     }

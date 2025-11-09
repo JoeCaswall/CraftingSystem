@@ -6,13 +6,11 @@ namespace Gameplay
     public class OutputMaterial : IMaterial
     {
         public string Name {get; set;}
-        public float Value {get; set;}
         public OutputMaterialType Type {get; set;}
         
-        public OutputMaterial(string name, float value, OutputMaterialType type)
+        public OutputMaterial(string name, OutputMaterialType type)
         {
             Name = name;
-            Value = value;
             Type = type;
         }
 

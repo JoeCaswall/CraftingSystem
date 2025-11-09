@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f751947bf4b444b5a7891567820aaa50, type: 3}
+  m_Name: BronzeBar
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.RecipeSO
+  recipeName: Bronze Bar
+  category: Metals
+  ingredients:
+  - material: {fileID: 11400000, guid: 9cbc72c00ecdd4b8da2d5c6fdbc36efb, type: 2}
+    quantity: 1
+  - material: {fileID: 11400000, guid: c373bcfc1eefd4ff0a0142a767a286da, type: 2}
+    quantity: 1
+  allowedStations: 00000000
+  outputQuantity: 1
+  isItemRecipe: 0
+  OutputMaterialType: 0
