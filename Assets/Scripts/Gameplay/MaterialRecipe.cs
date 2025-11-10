@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
@@ -10,6 +11,7 @@ namespace Gameplay
     public class MaterialRecipe : Recipe
     {
         public OutputMaterialType MaterialType;
+
         public MaterialRecipe(string name, OutputMaterialType type, string category, Dictionary<IMaterial, int> ingredients,
             List<CraftingStationType> allowedCraftingStations, int defaultOutputQuantity)
             : base(name, category, ingredients, allowedCraftingStations, defaultOutputQuantity)

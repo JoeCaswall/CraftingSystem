@@ -17,7 +17,7 @@ namespace Registries
                 _byId[material.Name] = material;
         }
 
-        public static IMaterial Get(string name)
+        public static RawMaterial Get(string name)
         {
             _byId.TryGetValue(name, out var material);
             return material;

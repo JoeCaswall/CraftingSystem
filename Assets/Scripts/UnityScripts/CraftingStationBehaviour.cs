@@ -5,10 +5,10 @@ using Core;
 using UnityEngine;
 using WorldObjects;
 using Gameplay;
+using Registries;
 using TMPro;
 using UnityEngine.UI;
 using Enums;
-using Registries;
 using ScriptableObjects;
 using UI;
 
@@ -47,7 +47,6 @@ namespace UnityScripts
             _itemRecipes = RecipeRegistry.AllRecipes["items"].FindAll(r => r.AllowedCraftingStations.Contains(stationType));
             _materialRecipes = RecipeRegistry.AllRecipes["materials"].FindAll(r => r.AllowedCraftingStations.Contains(stationType));
             Debug.Log($"Loaded {_itemRecipes.Count} item recipes and {_materialRecipes.Count} material recipes for {stationType}");
-            
         }
         
         void Update()
@@ -108,7 +107,7 @@ namespace UnityScripts
 
         public void TryCraft(Recipe recipe)
         {
-            Debug.Log(Player == null ? "Player is null" : $"Player is ready: {Player._name}");
+            Debug.Log(Player == null ? "Player is null" : $"Player is ready: {Player.Name}");
             Debug.Log(Player.Inventory == null ? "Inventory is null" : "Inventory is ready");
             Debug.Log(recipe == null ? "Recipe is null" : $"Crafting {recipe.Name}");
             Debug.Log(_station == null ? "Station is null" : $"Station is ready: {_station}");
@@ -116,8 +115,9 @@ namespace UnityScripts
             {
                 if (recipe is ItemRecipe itemRecipe)
                 {
-                    var result = _station.Craft(itemRecipe, Player);
-                    Debug.Log($"Crafted item: {result.Name}");
+                    // TODO: Fix logic in Craft() ItemRecipe overload and reenable this
+                    // var result = _station.Craft(itemRecipe, Player);
+                    // Debug.Log($"Crafted item: {result.Name}");
                 }
                 else if (recipe is MaterialRecipe materialRecipe)
                 {
@@ -148,7 +148,15 @@ namespace UnityScripts
             var ingredientDict = new Dictionary<IMaterial, int>();
             foreach (var ingredient in recipeSO.ingredients)
             {
-                ingredientDict.Add(new MaterialWrapper(ingredient.material), ingredient.quantity);
+                var registeredMaterial = Registries.MaterialRegistry.Get(ingredient.material.materialName);
+                if (registeredMaterial == null)
+                {
+                    Debug.LogWarning(
+                        $"Missing material in registry: {ingredient.material.materialName}");
+                    continue;
+                }
+
+                ingredientDict.Add(registeredMaterial, ingredient.quantity);
             }
 
             if (recipeSO.isItemRecipe)
