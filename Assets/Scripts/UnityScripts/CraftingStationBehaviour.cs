@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core;
 using UnityEngine;
 using WorldObjects;
@@ -19,26 +20,27 @@ namespace UnityScripts
         public string stationName;
         
         [Header("UI References")]
-        public GameObject craftingPanel;
-        public TextMeshProUGUI stationNameText;
-        public Transform recipeButtonContainer;
-        public GameObject recipeButtonPrefab;
+        [SerializeField] private GameObject craftingPanel;
+        [SerializeField] private Transform recipeButtonContainer;
+        [SerializeField] private GameObject recipeButtonPrefab;
+        [SerializeField] private TextMeshProUGUI stationNameText;
         
         [Header("Recipe Source")]
-        public List<Recipe> itemRecipes;
-        public List<Recipe> materialRecipes;
-        private Transform playerTransform;
+        private List<Recipe> _itemRecipes;
+        private List<Recipe> _materialRecipes;
+        private Transform _playerTransform;
 
         private CraftingStation _station;
-        private Player Player => playerTransform.GetComponent<Player>();
+        private Player Player => _playerTransform.GetComponent<Player>();
 
         void Awake()
         {
-            playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
-            if (playerTransform == null)
+            _playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+            if (_playerTransform == null)
                 Debug.LogError("Player not found. Make sure the Player GameObject is tagged 'Player'.");
-            itemRecipes = RecipeRegistry.AllRecipes["items"].FindAll(r => r.AllowedCraftingStations.Contains(stationType));
-            materialRecipes = RecipeRegistry.AllRecipes["materials"].FindAll(r => r.AllowedCraftingStations.Contains(stationType));
+            _itemRecipes = RecipeRegistry.AllRecipes["items"].FindAll(r => r.AllowedCraftingStations.Contains(stationType));
+            _materialRecipes = RecipeRegistry.AllRecipes["materials"].FindAll(r => r.AllowedCraftingStations.Contains(stationType));
+            Debug.Log($"Loaded {_itemRecipes.Count} item recipes and {_materialRecipes.Count} material recipes for {stationType}");
         }
         
         void Update()
@@ -51,7 +53,7 @@ namespace UnityScripts
         
         bool IsPlayerInRange()
         {
-            return Vector2.Distance(transform.position, playerTransform.position) <= interactionRange;
+            return Vector2.Distance(transform.position, _playerTransform.position) <= interactionRange;
         }
 
         void OpenCraftingUI()
@@ -69,22 +71,37 @@ namespace UnityScripts
             foreach (Transform child in recipeButtonContainer)
                 Destroy(child.gameObject);
 
-            CreateButtons(materialRecipes);
-            CreateButtons(itemRecipes);
+            CreateButtons(_materialRecipes);
+            CreateButtons(_itemRecipes);
         }
-
-
+        
+        public void CloseCraftingUI()
+        {
+            Debug.LogWarning("Button pressed");
+            if (craftingPanel != null)
+                craftingPanel.SetActive(false);
+        }
+        
         private void CreateButtons(List<Recipe> recipes)
         {
             foreach (var recipe in recipes)
             {
                 if (recipe.AllowedCraftingStations.Contains(stationType))
                 {
-                    var buttonGo = Instantiate(recipeButtonPrefab, recipeButtonContainer);
-                    var button = buttonGo.GetComponent<RecipeButtonBehaviour>();
-                    button.Setup(recipe, this);
+                    var buttonGO = Instantiate(recipeButtonPrefab, recipeButtonContainer);
+                    RecipeButtonBehaviour buttonBehaviour = buttonGO.GetComponent<RecipeButtonBehaviour>();
+                    buttonBehaviour.Setup(recipe, this); // 'this' is the CraftingStationBehaviour
+                    TextMeshProUGUI buttonText = buttonGO.GetComponentInChildren<TextMeshProUGUI>();
+                    buttonText.text = recipe.Name;
+                    Button button = buttonGO.GetComponent<Button>();
+                    button.onClick.AddListener(() => buttonBehaviour.OnClick(recipe));;
                 }
             }
+        }
+
+        private void OnRecipeSelected(Recipe recipe)
+        {
+            Debug.Log($"Selected recipe: {recipe.Name}");
         }
 
         public void TryCraft(Recipe recipe)
@@ -105,7 +122,7 @@ namespace UnityScripts
             }
         }
 
-        public Recipe ConvertToRecipe(RecipeSO recipeSO)
+        public static Recipe ConvertToRecipe(RecipeSO recipeSO)
         {
             var ingredientDict = new Dictionary<IMaterial, int>();
             foreach (var ingredient in recipeSO.ingredients)
@@ -127,7 +144,7 @@ namespace UnityScripts
             {
                 return new MaterialRecipe(
                     recipeSO.recipeName,
-                    recipeSO.OutputMaterialType,
+                    recipeSO.outputMaterialType,
                     recipeSO.category,
                     ingredientDict,
                     recipeSO.allowedStations,

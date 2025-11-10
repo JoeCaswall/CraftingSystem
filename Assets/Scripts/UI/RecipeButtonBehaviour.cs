@@ -1,5 +1,6 @@
 using UnityEngine;
 using Gameplay;
+using TMPro;
 using UnityScripts;
 using UnityEngine.UI;
 
@@ -14,10 +15,10 @@ namespace UI
         {
             this.recipe = recipe;
             this.station = station;
-            GetComponentInChildren<Text>().text = recipe.Name;
+            GetComponentInChildren<TextMeshProUGUI>().text = recipe.Name;
         }
 
-        public void OnClick()
+        public void OnClick(Recipe recipe)
         {
             station.TryCraft(recipe);
         }

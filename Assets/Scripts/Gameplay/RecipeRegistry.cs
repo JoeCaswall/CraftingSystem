@@ -12,12 +12,14 @@ namespace Gameplay
         
         public static void RegisterItemRecipe(Recipe recipe)
         {
-            AllRecipes["items"].Add(recipe);
+            if (!AllRecipes["items"].Contains(recipe))
+                AllRecipes["items"].Add(recipe);
         }
 
         public static void RegisterMaterialRecipe(Recipe recipe)
         {
-            AllRecipes["materials"].Add(recipe);
+            if (!AllRecipes["materials"].Contains(recipe))
+                AllRecipes["materials"].Add(recipe);
         }
     }
 }

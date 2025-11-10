@@ -5,13 +5,11 @@ namespace Gameplay
 {
     public class Inventory
     {
-        private Player _belongsTo;
         public Dictionary<CraftedItem, int> CraftedItems;
         public Dictionary<IMaterial, int> Materials { get; }
 
-        public Inventory(Player belongsTo, Dictionary<CraftedItem, int> craftedItems, Dictionary<IMaterial, int> materials)
+        public Inventory(Dictionary<CraftedItem, int> craftedItems, Dictionary<IMaterial, int> materials)
         {   
-            _belongsTo = belongsTo;
             Materials = materials;
             CraftedItems = craftedItems;
         }

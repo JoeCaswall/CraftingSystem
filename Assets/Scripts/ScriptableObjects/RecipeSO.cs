@@ -15,6 +15,6 @@ namespace ScriptableObjects
         public List<CraftingStationType> allowedStations;
         public int outputQuantity;
         public bool isItemRecipe; // true = item, false = material
-        public OutputMaterialType OutputMaterialType;
+        public OutputMaterialType outputMaterialType;
     }
 }
