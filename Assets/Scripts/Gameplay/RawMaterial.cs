@@ -10,7 +10,7 @@ namespace Gameplay
         public RawMaterial(string name)
         {
             Name = name;
-            // Ensure any created recipes get added to the registry
+            // Ensure any created materials get added to the registry
             MaterialRegistry.Register(this);
         }
 
