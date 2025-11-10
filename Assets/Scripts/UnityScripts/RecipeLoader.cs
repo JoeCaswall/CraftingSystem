@@ -14,11 +14,7 @@ namespace UnityScripts
         {
             foreach (var recipeSO in recipeAssets)
             {
-            Debug.Log($"RecipeSO {recipeSO.recipeName} ingredients count: {recipeSO.ingredients?.Count ?? 0}");
                 Recipe runtimeRecipe = CraftingStationBehaviour.ConvertToRecipe(recipeSO);
-                Debug.Log("#######################################");
-                Debug.Log(runtimeRecipe.Name);
-                Debug.Log("#######################################");
         
                 if (runtimeRecipe is ItemRecipe itemRecipe)
                     RecipeRegistry.RegisterItemRecipe(itemRecipe);
