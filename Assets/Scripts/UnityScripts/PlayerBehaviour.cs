@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core;
 using Registries;
 using UnityEngine;
 using Gameplay;
-using ScriptableObjects;
-using UnityEditor.Rendering;
 
 namespace UnityScripts
 {
@@ -21,8 +18,8 @@ namespace UnityScripts
             var materials = new Dictionary<string, int>();
             var inventory = new Inventory(craftedItems, materials);
             Player = new Player("TestUser", inventory);
-            _tin = Registries.MaterialRegistry.Get("TinOre");
-            _copper = Registries.MaterialRegistry.Get("CopperOre");
+            _tin = MaterialRegistry.Get("TinOre");
+            _copper = MaterialRegistry.Get("CopperOre");
             Debug.Log($"Registry loaded: Tin={_tin?.Name}, Copper={_copper?.Name}");
         }
 
