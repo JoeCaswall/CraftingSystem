@@ -148,7 +148,7 @@ namespace UnityScripts
             var ingredientDict = new Dictionary<string, int>();
             foreach (var ingredient in recipeSO.ingredients)
             {
-                var registeredMaterial = Registries.MaterialRegistry.Get(ingredient.material.materialName);
+                var registeredMaterial = MaterialRegistry.Get(ingredient.material.materialName);
                 if (registeredMaterial == null)
                 {
                     Debug.LogWarning($"Missing material in registry: {ingredient.material.materialName}");

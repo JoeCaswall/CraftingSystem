@@ -8,7 +8,7 @@ namespace Registries
 {
     public static class MaterialRegistry
     {
-        private static readonly Dictionary<string, RawMaterial> _byId = new Dictionary<string, RawMaterial>();
+        private static readonly Dictionary<string, RawMaterial> _byId;
 
         public static void Register(RawMaterial material)
         {

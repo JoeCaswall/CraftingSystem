@@ -1,5 +1,5 @@
 using Core;
-using Enums;
+using Registries;
 
 namespace Gameplay
 {
@@ -10,6 +10,8 @@ namespace Gameplay
         public RawMaterial(string name)
         {
             Name = name;
+            // Ensure any created recipes get added to the registry
+            MaterialRegistry.Register(this);
         }
 
         public string GetMaterialCategory()

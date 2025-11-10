@@ -1,5 +1,6 @@
 using Core;
 using Enums;
+using Registries;
 
 namespace Gameplay
 {
