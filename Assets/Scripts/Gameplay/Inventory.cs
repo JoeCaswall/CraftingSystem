@@ -7,10 +7,9 @@ namespace Gameplay
 {
     public class Inventory
     {
-        public Dictionary<CraftedItem, int> CraftedItems { get; private set; }
+        private Dictionary<CraftedItem, int> CraftedItems { get; }
         // Materials keyed by a stable string (e.g., material.Name or material.Id)
-        public Dictionary<string, int> Materials { get; }
-
+        public readonly Dictionary<string, int> Materials;
         public Inventory(Dictionary<CraftedItem, int> craftedItems, Dictionary<string, int> materials)
         {
             CraftedItems = craftedItems ?? new Dictionary<CraftedItem, int>();
@@ -22,7 +21,7 @@ namespace Gameplay
             return CraftedItems?.Keys ?? Enumerable.Empty<CraftedItem>();
         }
 
-        private IEnumerable<string> GetMaterials()
+        private IEnumerable<string> GetMaterialKeys()
         {
             return Materials?.Keys ?? Enumerable.Empty<string>();
         }
@@ -35,7 +34,7 @@ namespace Gameplay
 
         public IEnumerable<string> GetMaterialNames()
         {
-            return GetMaterials()
+            return GetMaterialKeys()
                 .Select(k => string.IsNullOrEmpty(k) ? "<null>" : k);
         }
 
@@ -50,7 +49,7 @@ namespace Gameplay
         }
 
         // Central string-based adder used by overloads
-        public void AddMaterialByKey(string materialKey, int quantity)
+        private void AddMaterialByKey(string materialKey, int quantity)
         {
             if (string.IsNullOrEmpty(materialKey) || quantity <= 0) return;
 
