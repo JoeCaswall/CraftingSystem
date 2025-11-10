@@ -15,9 +15,9 @@ MonoBehaviour:
   recipeName: Bowstring
   category: Weapons
   ingredients:
-  - material: {fileID: 0}
-    quantity: 0
-  allowedStations: 
-  outputQuantity: 0
+  - material: {fileID: 11400000, guid: e47b64546ebb24fe5b97e7ce3260291e, type: 2}
+    quantity: 1
+  allowedStations: 04000000
+  outputQuantity: 1
   isItemRecipe: 0
-  outputMaterialType: 0
+  outputMaterialType: 2

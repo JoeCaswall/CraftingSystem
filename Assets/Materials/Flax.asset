@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 436df5f6547b4c4582a14ed3110afb3d, type: 3}
   m_Name: Flax
   m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.MaterialSO
-  materialName: 
-  rawMaterialType: 0
-  outputMaterialType: 0
-  isRawMaterial: 0
+  materialName: Flax
+  rawMaterialType: 3
+  outputMaterialType: 2
+  isRawMaterial: 1

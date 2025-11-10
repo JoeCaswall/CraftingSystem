@@ -1521,6 +1521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.RecipeLoader
   recipeAssets:
   - {fileID: 11400000, guid: 0d119b758a64c46d6b77d781178f3219, type: 2}
+  - {fileID: 11400000, guid: d48593eb5ffbe449c9aca72c483bb448, type: 2}
 --- !u!114 &1813541859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1536,6 +1537,7 @@ MonoBehaviour:
   materialAssets:
   - {fileID: 11400000, guid: 9cbc72c00ecdd4b8da2d5c6fdbc36efb, type: 2}
   - {fileID: 11400000, guid: c373bcfc1eefd4ff0a0142a767a286da, type: 2}
+  - {fileID: 11400000, guid: e47b64546ebb24fe5b97e7ce3260291e, type: 2}
 --- !u!1 &1826811657
 GameObject:
   m_ObjectHideFlags: 0
