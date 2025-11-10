@@ -17,3 +17,4 @@ Move using arrow keys or WASD
 - Proper inventory UI, 
 - Improve crafting UI looks
 - More materials and stations
+- Fix craft button so it displays correctly
