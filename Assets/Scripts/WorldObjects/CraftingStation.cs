@@ -2,6 +2,7 @@ using System;
 using Core;
 using Enums;
 using Gameplay;
+using UnityEngine;
 
 namespace WorldObjects
 {
@@ -28,6 +29,7 @@ namespace WorldObjects
                 if (!inventory.Materials.TryGetValue(requiredMaterial, out var availableAmount) ||
                     availableAmount < requiredAmount)
                 {
+                    Debug.Log($"Missing Material: {requiredMaterial}. Required Amount: {requiredAmount}");
                     return false;
                 }
             }
@@ -43,6 +45,7 @@ namespace WorldObjects
 
             if (!HasCorrectIngredients(player.Inventory, recipe))
             {
+                
                 throw new InvalidOperationException($"You do not have the correct ingredients.");
             }
             
