@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using ScriptableObjects;
 using Registries;
 using UnityEngine;
-using UnityScripts;
+using Gameplay;
 
-namespace Gameplay
+namespace UnityScripts
 {
     [DefaultExecutionOrder(-50)]
     public class RecipeLoader : MonoBehaviour

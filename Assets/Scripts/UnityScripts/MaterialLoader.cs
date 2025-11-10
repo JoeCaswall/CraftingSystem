@@ -5,7 +5,7 @@ using Registries;
 using UnityEngine;
 using Gameplay;
 
-namespace Gameplay
+namespace UnityScripts
 {
     [DefaultExecutionOrder(-100)]
     public class MaterialLoader : MonoBehaviour
