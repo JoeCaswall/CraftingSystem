@@ -132,9 +132,13 @@ namespace UnityScripts
             {
                 Debug.LogWarning($"Crafting failed: {e.Message}");
             }
-            catch (Exception ex)
+            catch (NullReferenceException)
             {
-                Debug.LogError($"Unexpected error while crafting: {ex}");
+                Debug.LogError("Crafting failed, missing entity. Check logs above for more info.");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Unexpected error while crafting: {e}");
             }
         }
 
