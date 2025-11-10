@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 436df5f6547b4c4582a14ed3110afb3d, type: 3}
   m_Name: TinOre
   m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.MaterialSO
-  materialName: 
-  icon: {fileID: 0}
-  description: 
+  materialName: TinOre
+  isRawMaterial: 1

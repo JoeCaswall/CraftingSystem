@@ -8,6 +8,7 @@ using Gameplay;
 using TMPro;
 using UnityEngine.UI;
 using Enums;
+using Registries;
 using ScriptableObjects;
 using UI;
 
@@ -107,7 +108,7 @@ namespace UnityScripts
 
         public void TryCraft(Recipe recipe)
         {
-            Debug.Log(Player == null ? "Player is null" : $"Player is ready: {Player}");
+            Debug.Log(Player == null ? "Player is null" : $"Player is ready: {Player._name}");
             Debug.Log(Player.Inventory == null ? "Inventory is null" : "Inventory is ready");
             Debug.Log(recipe == null ? "Recipe is null" : $"Crafting {recipe.Name}");
             Debug.Log(_station == null ? "Station is null" : $"Station is ready: {_station}");

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core;
+using Registries;
 using UnityEngine;
 using Gameplay;
 using UnityEditor.Rendering;
@@ -9,8 +11,6 @@ namespace UnityScripts
     public class PlayerBehaviour : MonoBehaviour
     {
         public Player Player {get; private set;}
-        public OutputMaterial TinOre;
-        public OutputMaterial CopperOre;
 
         private void Awake()
         {
@@ -24,17 +24,27 @@ namespace UnityScripts
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (TinOre != null)
-                    Player.Inventory.AddMaterial(TinOre, 1);
-                if (CopperOre != null)
-                    Player.Inventory.AddMaterial(CopperOre, 1);
-                Debug.Log("Added Tin and Copper to inventory.");
+                Debug.Log(Player == null ? "Player is null" : $"Player is: {Player._name}");
+                // POC for demo - add tin and copper to player inventory manually
+                // In future items will be collected via gameplay
+                foreach (var mat in Registries.MaterialRegistry.GetAll())
+                {
+                    if (mat == null) continue;
+                    
+                    if (mat.Name.Equals("TinOre") || mat.Name.Equals("CopperOre"))
+                    {
+                        Player.Inventory.AddMaterial(mat, 1);
+                        Debug.Log($"Added {mat.Name} to inventory");
+                    }
+                }
             }
             
             // TODO: Implement proper interface for inventory
             if (Input.GetKeyDown(KeyCode.I))
             {
-                Debug.Log($"Inventory Contains: Items: {Player.Inventory.CraftedItems.Keys}, Materials: {Player.Inventory.Materials.Keys}");
+                var items = Player.Inventory.GetItemNames().ToArray();
+                var materials = Player.Inventory.GetMaterialNames().ToArray();
+                Debug.Log($"Inventory Contains: Items: {string.Join(", ", items)}, Materials: {string.Join(", ", materials)}");
             }
         }
     }

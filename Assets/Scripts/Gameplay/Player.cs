@@ -2,7 +2,7 @@ namespace Gameplay
 {
     public class Player
     {
-        private string _name;
+        public string _name { get; private set; }
         public Inventory Inventory;
         public RecipeBook RecipeBook;
 

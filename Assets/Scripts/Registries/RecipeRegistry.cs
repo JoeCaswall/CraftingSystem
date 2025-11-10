@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Gameplay;
 
-namespace Gameplay
+namespace Registries
 {
     public static class RecipeRegistry
     {
