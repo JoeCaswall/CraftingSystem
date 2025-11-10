@@ -7,7 +7,7 @@ namespace UnityScripts
 {
     public class PlayerBehaviour : MonoBehaviour
     {
-        public Player Player;
+        public Player Player {get; private set;}
 
         void Awake()
         {

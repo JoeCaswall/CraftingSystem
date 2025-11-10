@@ -31,7 +31,7 @@ namespace UnityScripts
         private Transform _playerTransform;
 
         private CraftingStation _station;
-        private Player Player => _playerTransform.GetComponent<Player>();
+        private Player Player => _playerTransform.GetComponent<PlayerBehaviour>().Player;
 
         void Awake()
         {
