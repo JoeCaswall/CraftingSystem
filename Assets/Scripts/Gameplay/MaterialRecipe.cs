@@ -12,7 +12,7 @@ namespace Gameplay
     {
         public OutputMaterialType MaterialType;
 
-        public MaterialRecipe(string name, OutputMaterialType type, string category, Dictionary<IMaterial, int> ingredients,
+        public MaterialRecipe(string name, OutputMaterialType type, string category, Dictionary<string, int> ingredients,
             List<CraftingStationType> allowedCraftingStations, int defaultOutputQuantity)
             : base(name, category, ingredients, allowedCraftingStations, defaultOutputQuantity)
         {

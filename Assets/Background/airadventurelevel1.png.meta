@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2b04db8bb89bd4b2aa4ac1297beac726
+guid: 8b6f964046a614ce5a5727180b5b4bd1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6605070122061835381
-    second: rpgTile001_0
+      213: 7000722695255505824
+    second: airadventurelevel1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rpgTile001_0
+      name: airadventurelevel1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 57caa06e74ce9ab50800000000000000
-      internalID: 6605070122061835381
+      spriteID: 0ab38bd2330972160800000000000000
+      internalID: 7000722695255505824
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      rpgTile001_0: 6605070122061835381
+      airadventurelevel1_0: 7000722695255505824
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

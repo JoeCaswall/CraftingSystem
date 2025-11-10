@@ -23,19 +23,23 @@ namespace WorldObjects
 
         private bool HasCorrectIngredients(Inventory inventory, Recipe recipe)
         {
+            Debug.Log($"HasCorrectIngredients called for recipe: {recipe?.Name} Ingredients count: {recipe?.Ingredients?.Count ?? 0}");
             foreach (var kvp in recipe.Ingredients) // kvp.Key = material object, kvp.Value = requiredAmount
             {
                 var requiredAmount = kvp.Value;
-                var materialKey = kvp.Key.Name;
+                var materialKey = kvp.Key;
                 var availableAmount = inventory.GetMaterialQuantity(materialKey);
-
+                
+                Debug.Log($"Checking material '{materialKey}' required:{requiredAmount} available:{availableAmount}");
+                
                 if (availableAmount < requiredAmount)
                 {
                     Debug.Log($"Missing Material: {materialKey}. Required Amount: {requiredAmount}");
                     return false;
                 }
             }
-
+            
+            Debug.Log("HasCorrectIngredients => true");
             return true;
         }
 
@@ -76,7 +80,7 @@ namespace WorldObjects
             
             foreach (var kvp in recipe.Ingredients)
             {
-                var materialKey = kvp.Key.Name;
+                var materialKey = kvp.Key;
                 var amount = kvp.Value;
                 
                 var current = player.Inventory.GetMaterialQuantity(materialKey);

@@ -145,18 +145,25 @@ namespace UnityScripts
 
         public static Recipe ConvertToRecipe(RecipeSO recipeSO)
         {
-            var ingredientDict = new Dictionary<IMaterial, int>();
+            var ingredientDict = new Dictionary<string, int>();
             foreach (var ingredient in recipeSO.ingredients)
             {
                 var registeredMaterial = Registries.MaterialRegistry.Get(ingredient.material.materialName);
                 if (registeredMaterial == null)
                 {
-                    Debug.LogWarning(
-                        $"Missing material in registry: {ingredient.material.materialName}");
+                    Debug.LogWarning($"Missing material in registry: {ingredient.material.materialName}");
                     continue;
                 }
 
-                ingredientDict.Add(registeredMaterial, ingredient.quantity);
+                // Use the stable name as the key
+                var key = registeredMaterial.Name; 
+                if (string.IsNullOrEmpty(key))
+                {
+                    Debug.LogWarning($"Material has no name, skipping ingredient for recipe {recipeSO.recipeName}");
+                    continue;
+                }
+
+                ingredientDict.Add(key, ingredient.quantity);
             }
 
             if (recipeSO.isItemRecipe)
@@ -181,5 +188,6 @@ namespace UnityScripts
                 );
             }
         }
+
     }
 }

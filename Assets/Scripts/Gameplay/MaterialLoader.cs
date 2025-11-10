@@ -7,6 +7,7 @@ using Gameplay;
 
 namespace Gameplay
 {
+    [DefaultExecutionOrder(-100)]
     public class MaterialLoader : MonoBehaviour
     {
         [SerializeField] private List<MaterialSO> materialAssets;

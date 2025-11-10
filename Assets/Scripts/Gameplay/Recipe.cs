@@ -10,11 +10,11 @@ namespace Gameplay
         private static HashSet<string> _existingNames = new();
         public string Name {get; set;}
         public string Category { get; set; }
-        public Dictionary<IMaterial, int> Ingredients { get; set;  }
+        public Dictionary<string, int> Ingredients { get; set;  }
         public List<CraftingStationType> AllowedCraftingStations { get; set; }
         public int DefaultOutputQuantity { get; protected set; }
 
-        protected Recipe(string name, string category, Dictionary<IMaterial, int> ingredients,
+        protected Recipe(string name, string category, Dictionary<string, int> ingredients,
             List<CraftingStationType> allowedCraftingStations, int defaultOutputQuantity)
         {
             Name = name;

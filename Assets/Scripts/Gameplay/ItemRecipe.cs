@@ -9,7 +9,7 @@ namespace Gameplay
     {
         public CraftedItem CraftedItem { get; }
 
-        public ItemRecipe(string name, string category, Dictionary<IMaterial, int> ingredients,
+        public ItemRecipe(string name, string category, Dictionary<string, int> ingredients,
             List<CraftingStationType> allowedCraftingStations, int defaultOutputQuantity)
             : base(name, category, ingredients, allowedCraftingStations, defaultOutputQuantity)
         {
