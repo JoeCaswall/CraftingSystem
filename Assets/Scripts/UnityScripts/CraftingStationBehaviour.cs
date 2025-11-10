@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
@@ -35,12 +36,17 @@ namespace UnityScripts
 
         void Awake()
         {
+            // Instantiate crafting station
+            _station = new CraftingStation(stationName, stationType);
+            if (_station == null)
+                Debug.LogError("CraftingStation component not found on this GameObject.");
             _playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
             if (_playerTransform == null)
                 Debug.LogError("Player not found. Make sure the Player GameObject is tagged 'Player'.");
             _itemRecipes = RecipeRegistry.AllRecipes["items"].FindAll(r => r.AllowedCraftingStations.Contains(stationType));
             _materialRecipes = RecipeRegistry.AllRecipes["materials"].FindAll(r => r.AllowedCraftingStations.Contains(stationType));
             Debug.Log($"Loaded {_itemRecipes.Count} item recipes and {_materialRecipes.Count} material recipes for {stationType}");
+            
         }
         
         void Update()
@@ -99,26 +105,36 @@ namespace UnityScripts
             }
         }
 
-        private void OnRecipeSelected(Recipe recipe)
-        {
-            Debug.Log($"Selected recipe: {recipe.Name}");
-        }
-
         public void TryCraft(Recipe recipe)
         {
-            if (recipe is ItemRecipe itemRecipe)
+            Debug.Log(Player == null ? "Player is null" : $"Player is ready: {Player}");
+            Debug.Log(Player.Inventory == null ? "Inventory is null" : "Inventory is ready");
+            Debug.Log(recipe == null ? "Recipe is null" : $"Crafting {recipe.Name}");
+            Debug.Log(_station == null ? "Station is null" : $"Station is ready: {_station}");
+            try
             {
-                var result = _station.Craft(itemRecipe, Player);
-                Debug.Log($"Crafted item: {result.Name}");
+                if (recipe is ItemRecipe itemRecipe)
+                {
+                    var result = _station.Craft(itemRecipe, Player);
+                    Debug.Log($"Crafted item: {result.Name}");
+                }
+                else if (recipe is MaterialRecipe materialRecipe)
+                {
+                    var result = _station.Craft(materialRecipe, Player);
+                    Debug.Log($"Refined material: {result.Name}");
+                }
+                else
+                {
+                    Debug.LogWarning("Unknown recipe type.");
+                }
             }
-            else if (recipe is MaterialRecipe materialRecipe)
+            catch (InvalidOperationException e)
             {
-                var result = _station.Craft(materialRecipe, Player);
-                Debug.Log($"Refined material: {result.Name}");
+                Debug.LogWarning($"Crafting failed: {e.Message}");
             }
-            else
+            catch (Exception ex)
             {
-                Debug.LogWarning("Unknown recipe type.");
+                Debug.LogError($"Unexpected error while crafting: {ex}");
             }
         }
 
