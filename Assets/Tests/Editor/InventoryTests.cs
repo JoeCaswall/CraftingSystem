@@ -1,10 +1,8 @@
 using NUnit.Framework;
-using UnityEngine;
 using Gameplay;
 using System.Collections.Generic;
-using Codice.CM.WorkspaceServer.Lock;
 
-namespace Editor
+namespace Tests.Editor
 {
     [TestFixture]
     public class InventoryTests

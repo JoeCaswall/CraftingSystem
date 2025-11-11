@@ -7,7 +7,7 @@ using Registries;
 using ScriptableObjects;
 using UnityScripts;
 
-namespace Editor
+namespace Tests.Editor
 {
     [TestFixture]
     public class ConvertToRecipeTests
