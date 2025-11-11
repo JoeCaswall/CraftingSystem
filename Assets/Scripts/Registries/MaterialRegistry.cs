@@ -28,6 +28,10 @@ namespace Registries
             return material;
         }
 
+        public static void Clear()
+        {
+            Materials.Clear();
+        }
         public static IEnumerable<RawMaterial> GetAll() => Materials.Values;
     }
 }
