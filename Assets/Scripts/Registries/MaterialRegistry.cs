@@ -8,21 +8,26 @@ namespace Registries
 {
     public static class MaterialRegistry
     {
-        private static readonly Dictionary<string, RawMaterial> _byId;
+        private static readonly Dictionary<string, RawMaterial> Materials;
+        
+        static MaterialRegistry()
+        {
+            Materials = new Dictionary<string, RawMaterial>();
+        }
 
         public static void Register(RawMaterial material)
         {
             if (material == null || string.IsNullOrEmpty(material.Name)) return;
-            if (!_byId.ContainsKey(material.Name))
-                _byId[material.Name] = material;
+            if (!Materials.ContainsKey(material.Name))
+                Materials[material.Name] = material;
         }
 
         public static RawMaterial Get(string name)
         {
-            _byId.TryGetValue(name, out var material);
+            Materials.TryGetValue(name, out var material);
             return material;
         }
 
-        public static IEnumerable<RawMaterial> GetAll() => _byId.Values;
+        public static IEnumerable<RawMaterial> GetAll() => Materials.Values;
     }
 }

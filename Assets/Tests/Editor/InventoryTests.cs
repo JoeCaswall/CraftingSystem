@@ -22,11 +22,11 @@ namespace Editor
             );
 
             _flax = new RawMaterial(
-                name: "flax"
+                name: "Flax"
             );
 
             _tin = new RawMaterial(
-                name: "tin"
+                name: "Tin"
             );
         }
 
@@ -49,7 +49,7 @@ namespace Editor
         public void RemoveMaterial_SufficientQuantity_Decrements()
         {
             _inventory.AddMaterial(_flax, 5);
-            bool result = _inventory.RemoveMaterial("Flax", 3);
+            bool result = _inventory.RemoveMaterial(_flax, 3);
             Assert.IsTrue(result);
             Assert.AreEqual(2, _inventory.GetMaterialQuantity("Flax"));
         }
@@ -58,7 +58,7 @@ namespace Editor
         public void RemoveMaterial_InsufficientQuantity_Fails()
         {
             _inventory.AddMaterial(_flax, 2);
-            bool result = _inventory.RemoveMaterial("Flax", 5);
+            bool result = _inventory.RemoveMaterial(_flax, 5);
             Assert.IsFalse(result);
             Assert.AreEqual(2, _inventory.GetMaterialQuantity("Flax"));
         }
@@ -77,9 +77,10 @@ namespace Editor
         }
 
         [Test] // INV-07
-        public void AddMaterial_NullKey_Throws()
+        public void AddMaterial_Misformed_Key_Throws()
         {
-            Assert.Throws<System.ArgumentException>(() => _inventory.AddMaterial(null, 5));
+            var invalidMaterial = new RawMaterial(name: string.Empty);
+            Assert.Throws<System.ArgumentException>(() => _inventory.AddMaterial(invalidMaterial, 5));
         }
     }
 }
