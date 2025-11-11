@@ -2,6 +2,7 @@ using System;
 using Core;
 using Enums;
 using Gameplay;
+using Registries;
 using UnityEngine;
 
 namespace WorldObjects
@@ -43,29 +44,6 @@ namespace WorldObjects
             return true;
         }
 
-        // public CraftedItem Craft(ItemRecipe recipe, Player player)
-        // {
-        //     if (!IsCorrectStationType(recipe))
-        //     {
-        //         throw new InvalidOperationException($"Recipe {recipe.Name} cannot be crafted at this station.");
-        //     }
-        //
-        //     if (!HasCorrectIngredients(player.Inventory, recipe))
-        //     {
-        //         throw new InvalidOperationException($"You do not have the correct ingredients.");
-        //     }
-        //     
-        //     // Consume ingredients
-        //     foreach (var (material, amount) in recipe.Ingredients)
-        //     {
-        //         player.Inventory.Materials[material] -= amount;
-        //     }
-        //
-        //     // Add crafted output
-        //     player.Inventory.AddItem(recipe.CraftedItem, recipe.DefaultOutputQuantity);
-        //     return recipe.CraftedItem;
-        // }
-
         public OutputMaterial Craft(MaterialRecipe recipe, Player player)
         {
             if (!IsCorrectStationType(recipe))
@@ -82,10 +60,8 @@ namespace WorldObjects
             {
                 var materialKey = kvp.Key;
                 var amount = kvp.Value;
-                
-                var current = player.Inventory.GetMaterialQuantity(materialKey);
-                var newAmount = current - amount;
-                player.Inventory.Materials[materialKey] = newAmount;
+
+                player.Inventory.RemoveMaterial(MaterialRegistry.Get(materialKey), amount);
             }
 
             // Add crafted output (use the Inventory overload that accepts the runtime OutputMaterial)
