@@ -18,3 +18,11 @@ Move using arrow keys or WASD
 - Improve crafting UI looks
 - More materials and stations
 - Fix craft button so it displays correctly
+
+
+## For Assessor
+Hi Jason!
+
+Version control can be seen in releases, currently on v0.1
+Version control history is in history, obviously
+Main logic is in Assets/Scripts
