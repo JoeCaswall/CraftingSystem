@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: CopperOre
   m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.MaterialSO
   materialName: CopperOre
+  rawMaterialType: 2
+  outputMaterialType: 0
   isRawMaterial: 1

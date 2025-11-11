@@ -113,13 +113,7 @@ namespace UnityScripts
             Debug.Log(_station == null ? "Station is null" : $"Station is ready: {_station}");
             try
             {
-                if (recipe is ItemRecipe itemRecipe)
-                {
-                    // TODO: Fix logic in Craft() ItemRecipe overload and reenable this
-                    // var result = _station.Craft(itemRecipe, Player);
-                    // Debug.Log($"Crafted item: {result.Name}");
-                }
-                else if (recipe is MaterialRecipe materialRecipe)
+                if (recipe is MaterialRecipe materialRecipe)
                 {
                     var result = _station.Craft(materialRecipe, Player);
                     Debug.Log($"Refined material: {result.Name}");
@@ -145,6 +139,10 @@ namespace UnityScripts
 
         public static Recipe ConvertToRecipe(RecipeSO recipeSO)
         {
+            if (recipeSO == null)
+            {
+                throw new ArgumentNullException("RecipeSO is null");
+            }
             var ingredientDict = new Dictionary<string, int>();
             foreach (var ingredient in recipeSO.ingredients)
             {

@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Gameplay
 {
@@ -49,44 +51,83 @@ namespace Gameplay
         }
 
         // Central string-based adder used by overloads
-        private void AddMaterialByKey(string materialKey, int quantity)
+        private bool AddMaterialByKey(string materialKey, int quantity)
         {
-            if (string.IsNullOrEmpty(materialKey) || quantity <= 0) return;
+            if (string.IsNullOrEmpty(materialKey) || quantity <= 0) return false;
 
             if (Materials.TryGetValue(materialKey, out var current))
+            {
                 Materials[materialKey] = current + quantity;
-            else
-                Materials[materialKey] = quantity;
+                return true;
+            }
+            Materials[materialKey] = quantity;
+            return false;
+        }
+
+        private bool RemoveMaterialByKey(string materialKey, int quantity)
+        {
+            if (string.IsNullOrEmpty(materialKey) || quantity <= 0) return false;
+
+            if (Materials.TryGetValue(materialKey, out var current))
+            {
+                if (quantity > current)
+                {
+                     return false;
+                }
+                Materials[materialKey] = current - quantity;
+                return true;
+            }
+
+            return false;
         }
         
-        public void AddMaterial(OutputMaterial material, int quantity)
+        public bool AddMaterial(OutputMaterial material, int quantity)
         {
             var key = material?.Name;
             Debug.Log($"Adding material: {key ?? "<null>"} qty:{quantity}");
-            AddMaterialByKey(key, quantity);
+            bool result = AddMaterialByKey(key, quantity);
 
             foreach (var kvp in Materials)
                 Debug.Log($"Material in inventory: {kvp.Key} x{kvp.Value}");
+            return result;
         }
 
-        public void AddMaterial(RawMaterial material, int quantity)
+        public bool AddMaterial(RawMaterial material, int quantity)
         {
             var key = material?.Name;
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentException("material name missing");
+            }
             Debug.Log($"Adding material: {key ?? "<null>"} qty:{quantity}");
-            AddMaterialByKey(key, quantity);
+            bool result = AddMaterialByKey(key, quantity);
 
             foreach (var kvp in Materials)
                 Debug.Log($"Material in inventory: {kvp.Key} x{kvp.Value}");
+            return result;
         }
         
-        public void AddMaterial(IMaterial mat, int quantity)
+        public bool AddMaterial(IMaterial material, int quantity)
         {
-            var key = mat?.Name;
-            Debug.Log($"Adding material (IMaterial): {key ?? "<null>"} qty:{quantity}");
-            AddMaterialByKey(key, quantity);
+            var key = material?.Name;
+            Debug.Log($"Adding material: {key ?? "<null>"} quantity:{quantity}");
+            bool result = AddMaterialByKey(key, quantity);
 
             foreach (var kvp in Materials)
                 Debug.Log($"Material in inventory: {kvp.Key} x{kvp.Value}");
+            return result;
+        }
+
+        public bool RemoveMaterial(IMaterial material, int quantity)
+        {
+            var key = material?.Name;
+            if (material?.Name == null)
+            {
+                throw new ArgumentException("material name missing");
+            }
+            Debug.Log($"Removing material {key ?? "<null>"} quantity:{quantity}");
+            bool result = RemoveMaterialByKey(key, quantity);
+            return result;
         }
         
         public int GetMaterialQuantity(string materialKey)
