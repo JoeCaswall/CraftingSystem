@@ -55,13 +55,24 @@ namespace WorldObjects
             {
                 throw new InvalidOperationException($"You do not have the correct ingredients.");
             }
+
+            if (player == null)
+                throw new ArgumentNullException(nameof(player));
+            
+            if (recipe == null) 
+                throw new ArgumentNullException(nameof(recipe));
             
             foreach (var kvp in recipe.Ingredients)
             {
                 var materialKey = kvp.Key;
                 var amount = kvp.Value;
-
-                player.Inventory.RemoveMaterial(MaterialRegistry.Get(materialKey), amount);
+                
+                var current = player.Inventory.GetMaterialQuantity(materialKey);
+                var newAmount = current - amount;
+                player.Inventory.Materials[materialKey] = newAmount;
+                
+                //TODO: This broke the removing logic - implement properly later as would allow Materials to be a private field
+                // player.Inventory.RemoveMaterial(MaterialRegistry.Get(materialKey), amount); 
             }
 
             // Add crafted output (use the Inventory overload that accepts the runtime OutputMaterial)
